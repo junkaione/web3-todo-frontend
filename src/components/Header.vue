@@ -5,7 +5,7 @@
     </van-button>
     <p class="address" v-else>{{ formatAddress(ethers.account) }}</p>
     <p class="balance">余额: {{ ethers.balance }}ETH</p>
-    <p>{{ userTasks.total }} Task</p>
+    <p>{{ userTasksTotal }} Task</p>
   </div>
 </template>
 
@@ -14,26 +14,11 @@ import { onMounted, computed, ref } from "vue";
 import useEthers from "@/store/ethers";
 
 const ethers = useEthers();
-const userTasks = ref({
-  data: [],
-  total: 0,
-});
+const userTasksTotal = ref(0);
 
 const getUserTasks = async () => {
-  const res = await ethers.contract.getUserTasks();
-  await getTaskDetail(res);
-};
-
-const getTaskDetail = async (taskList) => {
-  const tasks = [];
-  for (let i = 0; i < taskList.length; i++) {
-    const task = await ethers.contract.getTask(taskList[i].id);
-    tasks.push(task);
-  }
-  userTasks.value = {
-    data: tasks,
-    total: tasks.length,
-  };
+  const res = await ethers.contract.getTask();
+  userTasksTotal.value = res.length;
 };
 
 const formatAddress = (address) => {
