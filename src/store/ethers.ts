@@ -3,6 +3,8 @@ import { ethers } from "ethers";
 import { showDialog } from "vant";
 import { abi } from "@/abi/TodoList.json";
 
+declare var window: any;
+
 const { TODO_CONTRACT_ADDRESS } = import.meta.env;
 
 export default defineStore("ethers", {

@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, computed, ref } from "vue";
+import { onMounted, ref } from "vue";
 import useEthers from "@/store/ethers";
 
 const ethers = useEthers();
@@ -21,13 +21,13 @@ const getUserTasks = async () => {
   userTasksTotal.value = res.length;
 };
 
-const formatAddress = (address) => {
+const formatAddress = (address: any) => {
   return `${address.slice(0, 12)}.....${address.slice(-12)}`;
 };
 
 const connectWallet = async () => {
   await ethers.connectWallet();
-  localStorage.setItem("isConnectWallet", true);
+  localStorage.setItem("isConnectWallet", "true");
   await getUserTasks();
 };
 

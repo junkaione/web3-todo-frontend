@@ -81,7 +81,7 @@ const handleCompleteTask = async (id: number) => {
       message: "完成待办事项成功，等待区块链确认...",
       forbidClick: true,
     });
-  } catch (error) {
+  } catch (error: any) {
     showFailToast(error.reason || error.data?.message || error.message);
   }
 };
@@ -101,12 +101,15 @@ const handleDeleteTask = async (id: number) => {
       message: "删除待办事项成功，等待区块链确认...",
       forbidClick: true,
     });
-  } catch (error) {
+  } catch (error: any) {
     showFailToast(error.reason || error.data?.message || error.message);
   }
 };
 
-const userTasks = ref({
+const userTasks = ref<{
+  data: any;
+  total: number;
+}>({
   data: [],
   total: 0,
 });
@@ -159,7 +162,7 @@ const useAddTodo = () => {
         forbidClick: true,
       });
       closeAddTodoPopup();
-    } catch (error) {
+    } catch (error: any) {
       showFailToast(error.reason || error.data?.message || error.message);
     }
   };
